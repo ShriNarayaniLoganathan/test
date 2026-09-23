@@ -380,3 +380,171 @@ echo "$i*$a=$(($i*$a))"
 done 
 ```
 
+## PROGRAM 11
+
+##To write a shell script that displays and analyzes group information: all groups, group ID, 
+group members, total group count, and current user's groups.
+
+### PROCEDURE:
+
+STEP 1: Create a shell script file using the vi editor. 
+STEP 2: Use 'cat /etc/group | cut -d: -f1' to display all groups available in the system. 
+STEP 3: Accept a group name from the user and use 'getent group' to display its group ID. 
+STEP 4: Accept a group name and use 'getent group' to list all users belonging to that group. 
+STEP 5: Use 'cat /etc/group | wc -l' to count the total number of groups. 
+STEP 6: Use the 'groups' command to display all groups assigned to the current user. 
+STEP 7: Stop the process. 
+
+### SHELL SCRIPT :
+```bash
+echo "Display all groups available in the system" 
+cat /etc/group 
+echo "Display the group ID of a specified group" 
+getent group it30 | cut -d : -f3 
+echo "List users belonging to a particular group" 
+getent group it30 | cut -d : -f4 
+echo "Count the total number of groups available" 
+wc -l < /etc/group 
+echo "Display groups assigned to the current user" 
+groups
+```
+
+## PROGRAM 12
+
+Write a shell script to monitor process activities. 
+a. Display all running processes. 
+b. Display processes belonging to the current user. 
+c. Show top five CPU consuming processes. 
+d. Display process ID and parent process ID. 
+e. Display the total number of running processes. 
+
+### PROCEDURE:
+STEP 1: Create a shell script file using the vi editor. 
+STEP 2: Use 'ps -ef' to display all running processes in the system. 
+STEP 3: Use 'ps -u $USER' to display processes belonging to the current user only. 
+STEP 4: Use 'ps -eo pid,comm,%cpu --sort=-%cpu | head -6' to show top 5 CPU consuming 
+processes. 
+STEP 5: Use 'ps -eo pid,ppid,comm' to display process ID and parent process ID. 
+STEP 6: Use 'ps -ef | wc -l' to count total number of running processes. 
+STEP 7: Stop the process. 
+
+### SHELL SCRIPT :
+```bash
+echo "Display all running process" 
+ps -e 
+echo "Display process belonging to the current user" 
+ps -u $(whoami) 
+echo "Show top five CPU consuming process" 
+ps -eo pid,comm,%cpu-sort=-%cpu|head -6 
+echo "Display process ID and parent process ID" 
+ps -eo pid,ppid,comm 
+echo "Display the total number of running process" 
+ps -e h |wc -l
+```
+
+## PROGRAM 13
+
+Write a shell script to display network configuration information. 
+a. Display system hostname. 
+b. Display IP address of all network interfaces. 
+c. Display routing table information. 
+d. Display DNS server configuration. 
+e. Test network connectivity with a remote host.
+
+### PROCEDURE:
+
+STEP 1: Create a shell script file using the vi editor. 
+STEP 2: Use 'hostname' command to display the system hostname. 
+STEP 3: Use 'ip addr show' to display IP addresses of all network interfaces. 
+STEP 4: Use 'ip route' to display the routing table information. 
+STEP 5: Use 'cat /etc/resolv.conf' to display DNS server configuration. 
+STEP 6: Accept a remote host from the user and use 'ping -c 4' to test connectivity. 
+STEP 7: Stop the process. 
+
+### SHELL SCRIPT :
+```bash
+echo "Display system hostname" 
+hostname 
+echo "Display IP address of all network interfaces" 
+ip addr show 
+echo "Display routing table information" 
+ip route 
+echo "Display DNS server configuration" 
+cat /etc/resolve.conf 
+echo "Test network connectivity with remote host" 
+ping -c 4 google.com
+```
+
+## PROGRAM 14
+
+Write a shell script to monitor system logs and detect suspicious activity. 
+a. Display recent system log entries. 
+b. Display login history of users. 
+c. Display failed login attempts. 
+d. Search for specific keywords in log files. 
+e. Display the last 10 security related log messages. 
+
+### PROCEDURE:
+
+STEP 1: Create a shell script file using the vi editor. 
+STEP 2: Use 'tail -20 /var/log/messages' or 'journalctl -n 20' to display recent log entries. 
+STEP 3: Use 'last | head -15' to display login history of users. 
+STEP 4: Use grep to search for 'Failed password' in /var/log/secure to find failed login 
+attempts. 
+STEP 5: Accept a keyword from the user and search for it in log files using grep. 
+STEP 6: Use 'tail -10 /var/log/secure' to display the last 10 security-related log messages. 
+STEP 7: Stop the process. 
+
+### SHELL SCRIPT :
+```bash
+touch ~/mylog.log 
+echo "$(date)-INFO-User Logged In">>~/mylog.log 
+echo "$(date)-INFO-User Opened Application">>~/mylog.log 
+echo "$(date)-WARNING-Incorrect Password Entered">>~/mylog.log 
+echo "$(date)-INFO-User Logged OUT">>~/mylog.log 
+tail -f ~/mylog.log 
+last | tail -10 
+grep WARNING mylog.log 
+grep INFO mylog.log 
+```
+
+## PROGRAM 15
+
+Write a shell script to analyze disk usage. 
+a. Display disk usage of all directories in the home folder. 
+b. Display the top 5 largest directories in the system. 
+c. Display the number of files in each directory. 
+d. Display the file system type of each partition. 
+e. Display free disk space available. 
+
+### PROCEDURE:
+
+STEP 1: Create a shell script file using the vi editor. 
+STEP 2: Use 'du -sh ~/*' to display disk usage of all directories inside the home folder. 
+STEP 3: Use 'du -sh /* | sort -rh | head -5' to find the top 5 largest directories in the system. 
+STEP 4: Use a for loop with 'ls | wc -l' inside each subdirectory to count the number of files. 
+STEP 5: Use 'df -T' to display the filesystem type of each mounted partition. 
+STEP 6: Use 'df -h' to display free disk space available on all partitions. 
+STEP 7: Stop the process.
+
+### SHELL SCRIPT :
+```bash
+echo "--Disk usage of Home Directory--"                                                                                                         
+du -sh ~/* 2>/dev/null                                                                                                                          
+echo " "                                                                                                                                        
+echo "---Top 5 largest Directories--"                                                                                                           
+du -sh /* 2>/dev/null | sort -rh | head -5                                                                                                      
+echo " "                                                                                                                                        
+echo "--File count in Each Home Subdirectory--"                                                                                                
+for dir in ~/*/                                                                                                                                 
+do                                                                                                                                              
+count=$(ls "$dir" 2>/dev/null | wc -l)                                                                                                          
+echo "$dir:$count files"                                                                                                                        
+done                                                                                                                                            
+echo " "                                                                                                                                        
+echo "--File System Type of each partition--"                                                                                                   
+df -T | awk '{print $1,$2,$NF}'                                                                                                                 
+echo " "                                                                                                                                        
+echo "--- Free Disk Space Available ---"                                                                                                    
+df -h
+```
