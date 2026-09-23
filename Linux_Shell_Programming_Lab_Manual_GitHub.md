@@ -387,7 +387,7 @@ group members, total group count, and current user's groups.
 
 ### PROCEDURE:
 
-STEP 1: Create a shell script file using the vi editor. 
+STEP 1: Create a shell script file using the vi editor. \n
 STEP 2: Use 'cat /etc/group | cut -d: -f1' to display all groups available in the system. 
 STEP 3: Accept a group name from the user and use 'getent group' to display its group ID. 
 STEP 4: Accept a group name and use 'getent group' to list all users belonging to that group. 
