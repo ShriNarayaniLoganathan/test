@@ -370,16 +370,13 @@ done
 
 ---
 
-## Programs 10–15 (continued)
+or 
+```bash
+echo "Enter a number" 
+read a 
+for i in {1..10} 
+do 
+echo "$i*$a=$(($i*$a))" 
+done 
+```
 
-## PROGRAM 10
-
-## PROGRAM 11
-
-## PROGRAM 12
-
-## PROGRAM 13
-
-## PROGRAM 14
-
-## PROGRAM 15
